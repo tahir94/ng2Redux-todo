@@ -1,0 +1,19 @@
+<div style="padding : 5%"></div>
+<div style="text-align : center">
+	<div style="padding : 10px">
+		<button routerLink="/">Login</button>
+	</div>
+
+	<form [formGroup]="signupForm">
+	<div>
+		<input type="text" formControlName="email" placeholder="please enter email">
+	</div>
+	<div>	
+		<input type="text" formControlName="password" placeholder="please enter password">
+	</div>
+
+	<div style="padding : 20px">
+		<button (click)="signup()">submit</button>
+	</div>
+	</form>
+</div>
