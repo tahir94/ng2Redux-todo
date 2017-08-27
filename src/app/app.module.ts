@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutes } from "./routes";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // redux imports
-import { NgRedux,NgReduxModule } from 'ng2-redux'
-import { IAppState,rootReducer,INITIAL_STATE } from "./store"
+import { NgRedux, NgReduxModule } from 'ng2-redux'
+import { IAppState, rootReducer, INITIAL_STATE } from "./store2"
 import { AppComponent } from './app.component';
 
 // angularfire imports
@@ -19,27 +19,27 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from "./providers/auth-service.service";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignupComponent,
-    LoginComponent,
-    HomeComponent
-  ],
-  imports: [
-	BrowserModule,
-	AngularFireModule.initializeApp(environment.firebase),
-	AngularFireDatabaseModule, 
-	AngularFireAuthModule,
-	NgReduxModule,
-	AppRoutes,
-	FormsModule, 
-	ReactiveFormsModule 
-  ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		SignupComponent,
+		LoginComponent,
+		HomeComponent
+	],
+	imports: [
+		BrowserModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireDatabaseModule,
+		AngularFireAuthModule,
+		NgReduxModule,
+		AppRoutes,
+		FormsModule,
+		ReactiveFormsModule
+	],
+	providers: [AuthService],
+	bootstrap: [AppComponent]
 })
-export class AppModule { 
-	constructor( ngRedux : NgRedux<IAppState>){
-		ngRedux.configureStore(rootReducer,INITIAL_STATE)
+export class AppModule {
+	constructor(ngRedux: NgRedux<IAppState>) {
+		ngRedux.configureStore(rootReducer, INITIAL_STATE)
 	}
 }

@@ -1,3 +1,22 @@
-<p>
-  home works!
-</p>
+<input type="text" placeholder="type todo" [(ngModel)]="userTodo">
+<button (click)="submit(userTodo)">SUBMIT</button>
+<button (click)="update" *ngIf="isUpdate">UPDATE</button>
+
+
+<pre>{{todoInput | async}}</pre>
+<div> 
+
+  <ul *ngFor="let todo of (todo | async); let i = index" style="list-style : none">
+    <li>
+     {{todo}}
+    </li>
+    <button (click)="edit(todo,i)">EDIT</button>
+    <button>REMOVE</button>
+
+    <div *ngIf="isEdited">
+      <input type="text"  #selectedTodo [ngModel]="selectedUserTodo"  >
+      <button  (click)="update(selectedTodo.value,i)" >update</button>
+    </div>
+
+  </ul>
+</div>

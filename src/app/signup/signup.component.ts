@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder,FormControl } from "@angular/forms"
 import { NgRedux ,select } from "ng2-redux";
 import { IAppState } from "../store";
-import { SIGNUP_SUBMIT } from '../actions';
+// import { SIGNUP_SUBMIT } from '../actions';
 import { AuthService } from "../providers/auth-service.service"
 @Component({
   selector: 'app-signup',
@@ -25,11 +25,11 @@ signupForm : FormGroup;
 
   signup(){
 
-	  this.authService.signupData(this.signupForm.value)
-	  this.ngRedux.dispatch({
-	  type : SIGNUP_SUBMIT,
-	  payload : this.signupForm.value 		  
-	  })
+	  // this.authService.signupData(this.signupForm.value)
+	  // this.ngRedux.dispatch({
+	  // type : SIGNUP_SUBMIT,
+	  // payload : this.signupForm.value 		  
+	  // })
 	//  console.log(this.signupForm.value);
 	  
 

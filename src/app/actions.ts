@@ -1,1 +1,3 @@
-export const SIGNUP_SUBMIT = 'SIGNUP_SUBMIT'
+export const TODO_SUBMIT = 'TODO_SUBMIT';
+export const EDIT_TODO = 'EDIT_TODO'; 
+export const UPDATE_TODO = 'UPDATE_TODO'; 
