@@ -1,22 +1,24 @@
 <input type="text" placeholder="type todo" [(ngModel)]="userTodo">
-<button (click)="submit(userTodo)">SUBMIT</button>
-<button (click)="update" *ngIf="isUpdate">UPDATE</button>
+<button (click)="submit(userTodo)" [disabled]="isDisabled()">SUBMIT</button>
+<!-- <button (click)="update" *ngIf="isUpdate">UPDATE</button> -->
 
 
-<pre>{{todoInput | async}}</pre>
-<div> 
+<!-- <pre>{{todoInput | async}}</pre> -->
+<div > 
 
   <ul *ngFor="let todo of (todo | async); let i = index" style="list-style : none">
     <li>
      {{todo}}
-    </li>
-    <button (click)="edit(todo,i)">EDIT</button>
-    <button>REMOVE</button>
-
-    <div *ngIf="isEdited">
-      <input type="text"  #selectedTodo [ngModel]="selectedUserTodo"  >
+	</li>
+	<div style="display : inline" *ngIf="isEdited">
+      <input style="display : inline" type="text"  #selectedTodo [ngModel]="selectedUserTodo"  >
       <button  (click)="update(selectedTodo.value,i)" >update</button>
+	</div>
+	<div *ngIf="isEdit_Remove">	
+    <button (click)="edit(todo,i)">EDIT</button>
+    <button (click)=remove(todo,i)>REMOVE</button>
     </div>
+    
 
   </ul>
 </div>
