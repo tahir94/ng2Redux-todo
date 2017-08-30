@@ -1,0 +1,40 @@
+.user-todo-input{
+font-size : 1.4em;
+font-family : sans-serif    
+}
+
+.button-submit{
+ background : #4FC3F7;
+ color : white   
+}
+
+.u-list{
+list-style : none;
+font-family : sans-serif    
+}
+
+.list{
+font-size : 1.4em;
+padding: 10px    
+}
+
+
+.update-container{
+display:inline    
+}
+
+.update-input{
+display : inline;
+font-size : 1.4em    
+}
+
+.button-update{
+background : #4FC3F7;
+color : white    
+}
+
+.button-edit{
+background : #4FC3F7;
+color : white;
+opacity:0.6    
+}

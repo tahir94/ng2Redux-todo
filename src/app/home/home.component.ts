@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
+import { FormGroup,FormBuilder,Validators } from "@angular/forms";
+
 import { NgRedux, select } from 'ng2-redux';
-import { IAppState } from "../store2"
-import { TODO_SUBMIT } from "../actions";
-import { EDIT_TODO } from "../actions";
-import { UPDATE_TODO } from "../actions";
-import { REMOVE_TODO } from "../actions";
+import { IAppState } from "../reducers/store"
+import { TODO_SUBMIT } from "../actions/actions";
+import { EDIT_TODO } from "../actions/actions";
+import { UPDATE_TODO } from "../actions/actions";
+import { REMOVE_TODO } from "../actions/actions";
 
 @Component({
 	selector: 'app-home',
@@ -12,25 +14,37 @@ import { REMOVE_TODO } from "../actions";
 	styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-	// isUpdate;
+    userForm : FormGroup;
 	selectedUserTodo;
 	isEdited: boolean;
-	isEdit_Remove : boolean = true;
-	userTodo : Object;
-
+	isEdit_Remove: boolean = true;
+	EditRemoveIndex: number;
+	userTodo: Object;
+    subscription;
 	@select('todos') todo;
-	@select((s: IAppState) => s.currentUserTodo) todoInput
-	constructor(private ngRedux: NgRedux<IAppState>) {
-		this.ngRedux.subscribe(() => {
-			console.log(ngRedux.getState());
+	@select((s: IAppState) => s.currentUserTodo) todoInput;
+	constructor(private ngRedux: NgRedux<IAppState>,
+	            private fb : FormBuilder) {
+		this.subscription = this.ngRedux.subscribe(() => {
+			// console.log(ngRedux.getState());
 			this.selectedUserTodo = ngRedux.getState().currentUserTodo;
 
 		})
 	}
 
-	ngOnInit() {}
 
-	
+	ngOnInit() {
+		this.userForm = this.fb.group({
+			userTodo : '',
+            selectedUserTodo : ''
+		})
+	 }
+
+	 ngOnDestroy(){
+		this.subscription.unsubscribe();
+	 }
+
+
 	isDisabled() {
 		if (this.userTodo) {
 			return false;
@@ -39,19 +53,32 @@ export class HomeComponent implements OnInit {
 			return true;
 		}
 	}
-
-	submit(userTodo) {
-		// this.userTodo = userTodo
-		this.ngRedux.dispatch({
-			type: TODO_SUBMIT,
-			payload: userTodo
-		})
-		this.userTodo = '';
+	isUpdateDisable(selectedTodo) {
+		if (selectedTodo == "") {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
+	submit() {
+		this.userTodo = this.userForm.value.userTodo
+		this.ngRedux.dispatch({
+			type: TODO_SUBMIT,
+			payload: this.userTodo
+		})
+		this.userTodo = "";
+	}
+
+
+
+
 	edit(todo, index) {
-		this.isEdit_Remove = false;
+
+        this.isEdit_Remove = false;
 		this.isEdited = true;
+		this.EditRemoveIndex = index;
 
 		this.ngRedux.dispatch({
 			type: EDIT_TODO,
@@ -67,6 +94,7 @@ export class HomeComponent implements OnInit {
 
 
 	update(updatedTodo, index) {
+		this.EditRemoveIndex = null;
 		this.isEdit_Remove = true;
 		this.isEdited = false;
 		this.ngRedux.dispatch({

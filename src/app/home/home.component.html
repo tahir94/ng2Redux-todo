@@ -1,24 +1,46 @@
-<input type="text" placeholder="type todo" [(ngModel)]="userTodo">
-<button (click)="submit(userTodo)" [disabled]="isDisabled()">SUBMIT</button>
-<!-- <button (click)="update" *ngIf="isUpdate">UPDATE</button> -->
+<div style="padding : 5%"></div>
+
+<form [formGroup]="userForm">
+<div style="text-align : center">
+  <md-input-container>
+    <input type="text" class="user-todo-input" formControlName="userTodo" mdInput placeholder="Please Add Todo" [(ngModel)]="userTodo">
+  </md-input-container>
+  <div>
+    <button (click)="submit(userTodo)" class="button-submit" md-raised-button [disabled]="isDisabled()">SUBMIT</button>
+  </div>
 
 
-<!-- <pre>{{todoInput | async}}</pre> -->
-<div > 
+  <div style="padding : 5%">
 
-  <ul *ngFor="let todo of (todo | async); let i = index" style="list-style : none">
-    <li>
-     {{todo}}
-	</li>
-	<div style="display : inline" *ngIf="isEdited">
-      <input style="display : inline" type="text"  #selectedTodo [ngModel]="selectedUserTodo"  >
-      <button  (click)="update(selectedTodo.value,i)" >update</button>
-	</div>
-	<div *ngIf="isEdit_Remove">	
-    <button (click)="edit(todo,i)">EDIT</button>
-    <button (click)=remove(todo,i)>REMOVE</button>
-    </div>
-    
+    <ul *ngFor="let todo of (todo | async); let i = index" class="u-list">
+      <li class="list" >
+        {{todo}}
+      </li>
 
-  </ul>
+      <div class="update-container" *ngIf="EditRemoveIndex == i">
+
+        <md-input-container>
+          <input mdInput class="update-input" formControlName="selectedUserTodo" type="text" #selectedTodo [ngModel]="selectedUserTodo">
+        </md-input-container>
+        
+        <span style="padding : 10px"></span>
+        <button (click)="update(selectedTodo.value,i)" class="button-update" md-button [disabled]="isUpdateDisable(selectedTodo.value)">UPDATE</button>
+      
+      </div>
+
+      <span style="padding : 10px"></span>
+      <div *ngIf="EditRemoveIndex != i">
+        <button md-button class="button-edit" (click)="edit(todo,i)">EDIT</button>
+        <span style="padding :10px"></span>
+
+        <button md-button color="warn" (click)=remove(todo,i)>REMOVE</button>
+
+
+      </div>
+
+
+    </ul>
+  </div>
+
 </div>
+</form>

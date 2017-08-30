@@ -4,7 +4,7 @@ import { AppRoutes } from "./routes";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // redux imports
 import { NgRedux, NgReduxModule } from 'ng2-redux'
-import { IAppState, rootReducer, INITIAL_STATE } from "./store2"
+import { IAppState, rootReducer, INITIAL_STATE } from "./reducers/store"
 import { AppComponent } from './app.component';
 
 // angularfire imports
@@ -12,17 +12,17 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
-import { AuthService } from "./providers/auth-service.service";
+
+// material imports
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdButtonModule} from '@angular/material';
+import {MdInputModule} from '@angular/material';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		SignupComponent,
-		LoginComponent,
 		HomeComponent
 	],
 	imports: [
@@ -33,9 +33,12 @@ import { AuthService } from "./providers/auth-service.service";
 		NgReduxModule,
 		AppRoutes,
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		MdButtonModule,
+		MdInputModule
 	],
-	providers: [AuthService],
+	providers: [],
 	bootstrap: [AppComponent]
 })
 export class AppModule {
